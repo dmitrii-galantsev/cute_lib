@@ -16,14 +16,19 @@ package cute_pkg is
   procedure wait_clk (signal clk : sl);
   procedure wait_clk (constant cycles_k : integer; signal clk : sl);
 
+  procedure info;
   procedure info (constant str : string);
+
+  procedure finish;
+
+  function to_info_string (constant str : sl) return string;
   function to_info_string (constant str : slv) return string;
   function to_info_string (constant str : integer) return string;
-  procedure test_info;
 end package;
 
 package body cute_pkg is
 
+  -- PROCEDURES --
   procedure wait_clk (signal clk : sl)
   is begin
     wait until rising_edge(clk);
@@ -36,6 +41,11 @@ package body cute_pkg is
     end loop;
   end procedure;
 
+  procedure info
+  is begin
+    info("");
+  end procedure;
+
   procedure info (
     constant str : string
   ) is
@@ -46,27 +56,32 @@ package body cute_pkg is
     writeline(output, l);
   end procedure;
 
+  procedure finish
+  is begin
+    assert false report "Finished! " severity note;
+    wait;
+  end procedure;
+
+
+  -- FUNCTIONS --
+  function to_info_string (
+    constant str : sl
+  ) return string
+  is begin
+    return "sl : " & to_string(str);
+  end function;
+
   function to_info_string (
     constant str : slv
-  ) return string is
-  begin
+  ) return string
+  is begin
     return "slv(" & to_string(str'high) & " downto " & to_string(str'low) & ") : [" & to_string(str) & "]";
   end function;
 
   function to_info_string (
     constant str : integer
-  ) return string is
-  begin
+  ) return string
+  is begin
     return "int : " & to_string(str);
   end function;
-
-  procedure test_info is
-    constant test_string : string := "test string";
-    constant test_slv : slv8 := "00111100";
-    constant test_int : integer := 42;
-  begin
-    info(test_string);
-    info(to_info_string(test_slv));
-    info(to_info_string(test_int));
-  end procedure;
 end package body;

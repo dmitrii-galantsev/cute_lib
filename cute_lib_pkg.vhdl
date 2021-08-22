@@ -20,6 +20,7 @@ package cute_pkg is
   procedure info (constant str : string);
 
   procedure finish;
+  procedure finish (constant str : string);
 
   function to_info_string (constant str : sl) return string;
   function to_info_string (constant str : slv) return string;
@@ -29,13 +30,16 @@ end package;
 package body cute_pkg is
 
   -- PROCEDURES --
-  procedure wait_clk (signal clk : sl)
-  is begin
+  procedure wait_clk (
+    signal clk : sl
+  ) is begin
     wait until rising_edge(clk);
   end procedure;
 
-  procedure wait_clk (constant cycles_k : integer; signal clk : sl)
-  is begin
+  procedure wait_clk (
+    constant cycles_k : integer;
+    signal clk : sl
+  ) is begin
     for i in 1 to cycles_k loop
       wait_clk(clk);
     end loop;
@@ -58,7 +62,13 @@ package body cute_pkg is
 
   procedure finish
   is begin
-    assert false report "Finished! " severity note;
+    finish("Finished!");
+  end procedure;
+
+  procedure finish (
+    constant str : string
+  ) is begin
+    assert false report str severity note;
     wait;
   end procedure;
 

@@ -1,4 +1,0 @@
-v 4
-file . "cute_lib_pkg.vhdl" "8fd2134a33d1e835aae5d381f6ba2e0659abd972" "20210822195916.890":
-  package cute_pkg at 1( 0) + 0 on 19 body;
-  package body cute_pkg at 25( 850) + 0 on 20;

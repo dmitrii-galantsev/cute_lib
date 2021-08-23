@@ -64,13 +64,13 @@ package body cute_pkg is
 
   procedure finish
   is begin
-    finish("Finished!");
+    finish("Finished! Not actual failure!");
   end procedure;
 
   procedure finish (
     constant str : string
   ) is begin
-    assert false report str severity note;
+    report str severity note;
     wait;
   end procedure;
 

@@ -55,6 +55,8 @@ package body cute_pkg is
   ) is
     variable l : line;
   begin
+--    write(l, time'image(now) & HT);
+--    writeline(output, l);
     write(l, STRING'("[INFO]: "));
     write(l, str);
     writeline(output, l);
